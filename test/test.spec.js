@@ -53,7 +53,7 @@ describe('Collapse arrays', function() {
     });
 
     it('Two columns grouped', function() {
-      const result = groupBy(arr, 'who,name', 'money');
+      const result = groupBy(arr, ['who','name'], 'money');
 
       expect(result).to.be.an('array');
       expect(result).to.have.lengthOf(4);
@@ -467,7 +467,7 @@ describe('Collapse arrays', function() {
   describe('Non validated args', function() {
     it('Intersection columns', function() {
       expect(function() {
-        groupBy([], 'who,name', 'who,money');
+        groupBy([], ['who','name'], 'who,money');
       }).to.throw('who');
     });
 

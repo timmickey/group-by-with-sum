@@ -5,13 +5,13 @@ const pick = require('./lib/pick');
 
 const validateIntersection = function(props1, props2) {
   if (props2) {
-    const arr1 = props1.split(',');
     const arr2 = props2.split(',');
+    // console.log('props1', props1)
 
     let intersected;
     const hasIntersection = arr2.some((s) => {
       intersected = s;
-      return arr1.indexOf(s) >= 0;
+      return props1.indexOf(s) >= 0;
     });
 
     if (hasIntersection) {
@@ -29,8 +29,8 @@ const validateParams = function(array, groupedProps, sumProps) {
     throw new Error('Argument "groupedProps" must be present');
   }
 
-  if (typeof groupedProps !== 'string') {
-    throw new TypeError('Argument "groupedProps" must be a string');
+  if (typeof groupedProps !== "string" && !Array.isArray(groupedProps)) {
+    throw new TypeError('Argument "groupedProps" must be a string or string');
   }
 
   if (sumProps && typeof sumProps !== 'string') {
@@ -51,8 +51,12 @@ const validateParams = function(array, groupedProps, sumProps) {
  */
 const groupBy = (array, groupedProps, sumProps, keyFn=JSON.stringify) => {
 
-  if (typeof sumProps === 'function') {
-    [ keyFn, sumProps ] = [ sumProps, '' ];
+  if (typeof groupedProps === 'string'){
+    groupedProps = [groupedProps];
+  }
+
+  if (typeof sumProps === "function") {
+    [keyFn, sumProps] = [sumProps, ""];
   }
 
   validateParams(array, groupedProps, sumProps);

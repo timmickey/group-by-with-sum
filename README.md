@@ -23,7 +23,7 @@ const whoWithMoney = groupBy(arr, 'who', 'money');
   ]
 */ 
 
-const whoNameWithMoney = groupBy(arr, 'who,name', 'money');
+const whoNameWithMoney = groupBy(arr, ['who','name'], 'money');
 /* [
     { who: 'man', name: 'Vasay', money: 363 },
     { who: 'man', name: 'Kolya', money: 98 },
